@@ -4,7 +4,8 @@
            @keydown.enter="add" 
            type="text"
            class="form-element"
-           placeholder="Nova Tarefa?">
+           placeholder="Nova Tarefa?"
+           ref="inputTask">
     <button @click="add" class="form-element">+</button>
   </div>
 </template>
@@ -16,11 +17,15 @@ export default {
       name : ''
     }
   },
+  mounted(){
+    this.$refs.inputTask.focus();
+  },
   methods:{
     add(){
       this.$emit('taskAdded', { name: this.name });
       this.name = '';
-    }
+      this.$refs.inputTask.focus();
+    },
   }
 }
 </script>

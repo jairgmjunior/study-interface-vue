@@ -2,7 +2,12 @@
   <div class="task-grid">
     <template v-if="tasks.length">
       <!-- :task é a propriedade parametro do componente task -->
-      <Task v-for="task in tasks" :key="task.name" :task="task"></Task>
+      <Task 
+          v-for="task in tasks" 
+          :key="task.name" 
+          :task="task"
+          @taskStateChange="$emit('taskStateChange', $event)"
+          @taskDeleted="$emit('taskDeleted', $event)"></Task>
     </template>
     <p class="no-task" v-else>Sua vida está em dia! =)</p>
   </div>
