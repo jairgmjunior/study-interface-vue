@@ -32,6 +32,14 @@ export default {
 			return Math.round(done / total * 100) || 0;
 		}
 	},
+	watch:{
+		tasks: {
+			deep: true,
+			handler(){
+				localStorage.setItem('tasks', JSON.stringify(this.tasks))
+			}
+		}
+	},
 	methods:{
 		addTask(task){
 			const reallyNew = this.tasks.filter(p => p.name.toUpperCase() === task.name.toUpperCase()).length == 0;
@@ -51,6 +59,16 @@ export default {
 		},
 		toogleTaskState(task){
 			task.pending = !task.pending;
+		}
+	},
+	created(){
+		const json = localStorage.getItem('tasks');
+		const array = JSON.parse(json);
+		
+		if(Array.isArray(array)){
+			this.tasks = array;
+		}else{
+			this.tasks = [];
 		}
 	}
 }
